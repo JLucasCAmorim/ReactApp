@@ -1,0 +1,25 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var NavigationCard = require(_dependencyMap[0], './NavigationCard');
+
+  var NavigationCardStack = require(_dependencyMap[1], './NavigationCardStack');
+
+  var NavigationHeader = require(_dependencyMap[2], './NavigationHeader');
+
+  var NavigationPropTypes = require(_dependencyMap[3], './NavigationPropTypes');
+
+  var NavigationStateUtils = require(_dependencyMap[4], './NavigationStateUtils');
+
+  var NavigationTransitioner = require(_dependencyMap[5], './NavigationTransitioner');
+
+  var NavigationExperimental = {
+    StateUtils: NavigationStateUtils,
+    Transitioner: NavigationTransitioner,
+    Card: NavigationCard,
+    CardStack: NavigationCardStack,
+    Header: NavigationHeader,
+    PropTypes: NavigationPropTypes
+  };
+  module.exports = NavigationExperimental;
+});

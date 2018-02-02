@@ -1,0 +1,187 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/home/lucas/React/MyProject/node_modules/@expo/ex-navigation/src/ExNavigationStackItem.js";
+
+  var _reactNative = require(_dependencyMap[2], "react-native");
+
+  var _propTypes = require(_dependencyMap[3], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _PureComponent2 = require(_dependencyMap[4], "./utils/PureComponent");
+
+  var _PureComponent3 = _interopRequireDefault(_PureComponent2);
+
+  var _ExNavigationStyles = require(_dependencyMap[5], "./ExNavigationStyles");
+
+  var NavigationStyles = _interopRequireWildcard(_ExNavigationStyles);
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    SceneView: {
+      displayName: "SceneView"
+    },
+    ExNavigationStackItem: {
+      displayName: "ExNavigationStackItem"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/lucas/React/MyProject/node_modules/@expo/ex-navigation/src/ExNavigationStackItem.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var SceneView = _wrapComponent("SceneView")((_temp = _class = function (_React$Component) {
+    _inherits(SceneView, _React$Component);
+
+    function SceneView() {
+      _classCallCheck(this, SceneView);
+
+      return _possibleConstructorReturn(this, (SceneView.__proto__ || Object.getPrototypeOf(SceneView)).apply(this, arguments));
+    }
+
+    _createClass(SceneView, [{
+      key: "getChildContext",
+      value: function getChildContext() {
+        return {
+          scene: this.props.sceneRendererProps.scene
+        };
+      }
+    }, {
+      key: "shouldComponentUpdate",
+      value: function shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.sceneRendererProps.scene.route !== this.props.sceneRendererProps.scene.route;
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return this.props.sceneRenderer(this.props.sceneRendererProps);
+      }
+    }]);
+
+    return SceneView;
+  }(_react3.default.Component), _class.propTypes = {
+    sceneRenderer: _propTypes2.default.func.isRequired
+  }, _class.childContextTypes = {
+    scene: _propTypes2.default.object
+  }, _temp));
+
+  var ExNavigationStackItem = _wrapComponent("ExNavigationStackItem")(function (_PureComponent) {
+    _inherits(ExNavigationStackItem, _PureComponent);
+
+    function ExNavigationStackItem() {
+      _classCallCheck(this, ExNavigationStackItem);
+
+      return _possibleConstructorReturn(this, (ExNavigationStackItem.__proto__ || Object.getPrototypeOf(ExNavigationStackItem)).apply(this, arguments));
+    }
+
+    _createClass(ExNavigationStackItem, [{
+      key: "render",
+      value: function render() {
+        var _props = this.props,
+            sceneAnimations = _props.sceneAnimations,
+            gestures = _props.gestures,
+            renderScene = _props.renderScene,
+            style = _props.style,
+            navigationState = _props.navigationState,
+            scene = _props.scene,
+            props = _objectWithoutProperties(_props, ["sceneAnimations", "gestures", "renderScene", "style", "navigationState", "scene"]);
+
+        if (sceneAnimations === undefined) {
+          sceneAnimations = NavigationStyles.SlideHorizontal.sceneAnimations(this.props);
+        } else {
+          sceneAnimations = sceneAnimations(this.props);
+        }
+
+        if (gestures === undefined) {
+          gestures = NavigationStyles.SlideHorizontal.gestures && NavigationStyles.SlideHorizontal.gestures(this.props);
+        } else if (typeof gestures === 'function') {
+          gestures = gestures(this.props);
+        }
+
+        var interactive = navigationState.index === scene.index && !scene.isStale;
+        var pointerEvents = interactive ? 'auto' : 'none';
+        return _react3.default.createElement(
+          _reactNative.Animated.View,
+          _extends({}, gestures, {
+            needsOffscreenAlphaCompositing: true,
+            style: [styles.main, style, sceneAnimations],
+            pointerEvents: pointerEvents,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 70
+            }
+          }),
+          _react3.default.createElement(SceneView, {
+            sceneRenderer: renderScene,
+            sceneRendererProps: _extends({}, props, {
+              scene: scene
+            }),
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 75
+            }
+          })
+        );
+      }
+    }]);
+
+    return ExNavigationStackItem;
+  }(_PureComponent3.default));
+
+  exports.default = ExNavigationStackItem;
+
+  var styles = _reactNative.StyleSheet.create({
+    main: {
+      backgroundColor: 'white',
+      bottom: 0,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      shadowColor: 'black',
+      shadowOffset: {
+        width: 0,
+        height: 0
+      },
+      shadowOpacity: 0.4,
+      shadowRadius: 10,
+      top: 0
+    }
+  });
+});

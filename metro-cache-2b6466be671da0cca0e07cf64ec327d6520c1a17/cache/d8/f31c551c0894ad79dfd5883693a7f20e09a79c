@@ -1,0 +1,334 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = require(_dependencyMap[1], "./../../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/lucas/React/MyProject/node_modules/@expo/ex-navigation/src/drawer/ExNavigationDrawerLayout.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = require(_dependencyMap[2], "react-native");
+
+  var _reactNativeDrawerLayoutPolyfill = require(_dependencyMap[3], "react-native-drawer-layout-polyfill");
+
+  var _reactNativeDrawerLayoutPolyfill2 = _interopRequireDefault(_reactNativeDrawerLayoutPolyfill);
+
+  var _reactNativeTouchableNativeFeedbackSafe = require(_dependencyMap[4], "@expo/react-native-touchable-native-feedback-safe");
+
+  var _reactNativeTouchableNativeFeedbackSafe2 = _interopRequireDefault(_reactNativeTouchableNativeFeedbackSafe);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    ExNavigationDrawerLayout: {
+      displayName: "ExNavigationDrawerLayout"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/lucas/React/MyProject/node_modules/@expo/ex-navigation/src/drawer/ExNavigationDrawerLayout.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var ExNavigationDrawerLayout = _wrapComponent("ExNavigationDrawerLayout")(function (_React$Component) {
+    _inherits(ExNavigationDrawerLayout, _React$Component);
+
+    function ExNavigationDrawerLayout() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, ExNavigationDrawerLayout);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ExNavigationDrawerLayout.__proto__ || Object.getPrototypeOf(ExNavigationDrawerLayout)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        isOpen: false
+      }, _this._renderNavigationView = function () {
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: [styles.navigationViewContainer, _this.props.style],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 72
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 73
+              }
+            },
+            _this.props.renderHeader()
+          ),
+          _react3.default.createElement(
+            _reactNative.ScrollView,
+            {
+              contentContainerStyle: styles.navigationViewScrollableContentContainer,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 77
+              }
+            },
+            _this._renderDrawerItems()
+          )
+        );
+      }, _this._renderDrawerItems = function () {
+        if (!_this.props.items) {
+          return null;
+        }
+
+        return _this.props.items.map(function (item, index) {
+          var renderIcon = item.renderIcon,
+              renderTitle = item.renderTitle,
+              renderRight = item.renderRight;
+          var isSelected = _this.props.selectedItem === item.id;
+          var icon = renderIcon && renderIcon(isSelected);
+          var title = renderTitle && renderTitle(isSelected);
+          var rightElement = renderRight && renderRight(isSelected);
+
+          if (item.showsTouches !== false) {
+            return _react3.default.createElement(
+              _reactNativeTouchableNativeFeedbackSafe2.default,
+              {
+                key: index,
+                onPress: function onPress() {
+                  _this._handlePress(item);
+                },
+                onLongPress: function onLongPress() {
+                  _this._handleLongPress(item);
+                },
+                delayPressIn: 0,
+                style: [isSelected ? item.selectedStyle : item.style],
+                background: item.nativeFeedbackBackground,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 101
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.buttonContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 112
+                  }
+                },
+                icon && _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: [styles.elementContainer],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 113
+                    }
+                  },
+                  icon
+                ),
+                title && _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: [styles.elementContainer],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 114
+                    }
+                  },
+                  title
+                ),
+                rightElement && _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: [styles.elementContainer, styles.rightElementContainer],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 116
+                    }
+                  },
+                  rightElement
+                )
+              )
+            );
+          } else {
+            return _react3.default.createElement(
+              _reactNative.TouchableWithoutFeedback,
+              {
+                key: index,
+                onPress: function onPress() {
+                  _this._handlePress(item);
+                },
+                onLongPress: function onLongPress() {
+                  _this._handleLongPress(item);
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 128
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: [styles.buttonContainer, isSelected ? item.selectedStyle : item.style],
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 136
+                  }
+                },
+                icon && _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: [styles.elementContainer],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 141
+                    }
+                  },
+                  icon
+                ),
+                title && _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: [styles.elementContainer],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 142
+                    }
+                  },
+                  title
+                ),
+                rightElement && _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: [styles.elementContainer, styles.rightElementContainer],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 144
+                    }
+                  },
+                  rightElement
+                )
+              )
+            );
+          }
+        });
+      }, _this._handlePress = function (item) {
+        item.onPress();
+
+        _this._component.closeDrawer();
+      }, _this._handleLongPress = function (item) {
+        if (!item.onLongPress) {
+          return;
+        }
+
+        item.onLongPress();
+
+        _this._component.closeDrawer();
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(ExNavigationDrawerLayout, [{
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        var drawerPosition = this.props.drawerPosition;
+        var position = drawerPosition[0].toUpperCase() + drawerPosition.substr(1);
+        return _react3.default.createElement(
+          _reactNativeDrawerLayoutPolyfill2.default,
+          {
+            ref: function ref(component) {
+              _this2._component = component;
+            },
+            onDrawerClose: function onDrawerClose() {
+              _this2.setState({
+                isOpen: false
+              });
+            },
+            onDrawerOpen: function onDrawerOpen() {
+              _this2.setState({
+                isOpen: true
+              });
+            },
+            drawerBackgroundColor: this.props.drawerBackgroundColor,
+            drawerWidth: this.props.width,
+            drawerPosition: _reactNativeDrawerLayoutPolyfill2.default.positions[position],
+            renderNavigationView: this.props.renderNavigationView || this._renderNavigationView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 41
+            }
+          },
+          this.props.children
+        );
+      }
+    }, {
+      key: "toggle",
+      value: function toggle() {
+        if (this.state.isOpen) {
+          this._component.closeDrawer();
+        } else {
+          this._component.openDrawer();
+        }
+      }
+    }]);
+
+    return ExNavigationDrawerLayout;
+  }(_react3.default.Component));
+
+  exports.default = ExNavigationDrawerLayout;
+
+  var styles = _reactNative.StyleSheet.create({
+    navigationViewContainer: {
+      flex: 1,
+      backgroundColor: '#fff'
+    },
+    navigationViewScrollableContentContainer: {
+      paddingTop: 8
+    },
+    buttonContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 15
+    },
+    elementContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    rightElementContainer: {
+      flex: 1,
+      justifyContent: 'flex-end'
+    }
+  });
+});

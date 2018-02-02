@@ -1,0 +1,12 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/app/images",
+    "width": 590,
+    "height": 300,
+    "scales": [1],
+    "hash": "838b953ee68e7f6f4a24b667c7d04284",
+    "name": "Inter",
+    "type": "jpg"
+  });
+});

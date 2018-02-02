@@ -1,0 +1,135 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Drawer = exports.Stack1 = undefined;
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/lucas/React/MyProject/app/routes/routes.js";
+
+  var _react = require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = require(_dependencyMap[1], "react-native");
+
+  var _reactNavigation = require(_dependencyMap[2], "react-navigation");
+
+  var _index = require(_dependencyMap[3], "../index");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _add = require(_dependencyMap[4], "../screens/add");
+
+  var _add2 = _interopRequireDefault(_add);
+
+  var _Ionicons = require(_dependencyMap[5], "@expo/vector-icons/Ionicons");
+
+  var _Ionicons2 = _interopRequireDefault(_Ionicons);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var DrawerIcon = function DrawerIcon(_ref) {
+    var navigation = _ref.navigation;
+
+    if (_reactNative.Platform.OS == 'ios') {
+      return null;
+    }
+
+    return _react2.default.createElement(_Ionicons2.default, {
+      name: "md-menu",
+      size: 28,
+      color: "white",
+      style: {
+        paddingLeft: 20
+      },
+      onPress: function onPress() {
+        return navigation.navigate('DrawerOpen');
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 13
+      }
+    });
+  };
+
+  var AddIcon = function AddIcon(_ref2) {
+    var navigation = _ref2.navigation;
+    return _react2.default.createElement(_Ionicons2.default, {
+      name: "md-add",
+      size: 28,
+      color: "white",
+      style: {
+        paddingRight: 20
+      },
+      onPress: function onPress() {
+        return navigation.navigate('Add');
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 25
+      }
+    });
+  };
+
+  var Stack1 = exports.Stack1 = (0, _reactNavigation.StackNavigator)({
+    Home: {
+      screen: _index2.default,
+      navigationOptions: function navigationOptions(props) {
+        return {
+          title: 'Minhas Contas',
+          headerLeft: _react2.default.createElement(DrawerIcon, _extends({}, props, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 41
+            }
+          })),
+          headerRight: _react2.default.createElement(AddIcon, _extends({}, props, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 42
+            }
+          })),
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#0087B7'
+          }
+        };
+      }
+    },
+    Add: {
+      screen: _add2.default,
+      navigationOptions: {
+        headerTitle: 'Add',
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#0087B7'
+        }
+      }
+    }
+  });
+  var Drawer = exports.Drawer = (0, _reactNavigation.DrawerNavigator)({
+    Home: {
+      screen: Stack1,
+      navigationOptions: {
+        drawerLabel: 'Home',
+        drawerIcon: function drawerIcon(_ref3) {
+          var tintColor = _ref3.tintColor,
+              focused = _ref3.focused;
+          return _react2.default.createElement(_Ionicons2.default, {
+            name: focused ? 'ios-home' : 'ios-home-outline',
+            size: 20,
+            style: {
+              color: tintColor
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 64
+            }
+          });
+        }
+      }
+    }
+  });
+});

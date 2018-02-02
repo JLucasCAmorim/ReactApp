@@ -1,0 +1,233 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  var _react2 = require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = require(_dependencyMap[1], "./../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/lucas/React/MyProject/node_modules/react-native-select-list/src/select.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = require(_dependencyMap[2], "react-native");
+
+  var _caret = require(_dependencyMap[3], "./caret");
+
+  var _caret2 = _interopRequireDefault(_caret);
+
+  var _list = require(_dependencyMap[4], "./list");
+
+  var _list2 = _interopRequireDefault(_list);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Select: {
+      displayName: "Select"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/lucas/React/MyProject/node_modules/react-native-select-list/src/select.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var window = _reactNative.Dimensions.get('window');
+
+  var Select = _wrapComponent("Select")(function (_Component) {
+    _inherits(Select, _Component);
+
+    function Select(props) {
+      _classCallCheck(this, Select);
+
+      var _this = _possibleConstructorReturn(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, props));
+
+      var defaultValue = props.default;
+
+      if (!defaultValue) {
+        defaultValue = props.children[0].props.children;
+      }
+
+      _this.onOptionPressed = _this.onOptionPressed.bind(_this);
+      _this.state = {
+        value: defaultValue,
+        visible: 0,
+        listHeight: 0
+      };
+      return _this;
+    }
+
+    _createClass(Select, [{
+      key: "onOptionPressed",
+      value: function onOptionPressed(value, text) {
+        this.setState({
+          visible: false,
+          value: text
+        });
+        this.props.onSelect(value, text);
+      }
+    }, {
+      key: "toggleVisibility",
+      value: function toggleVisibility() {
+        this.setState({
+          visible: this.state.visible ? 0 : 1
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        var _props = this.props,
+            padding = _props.padding,
+            caret = _props.caret;
+        var offset = 2 * padding;
+
+        if (caret) {
+          if (typeof caret !== "string") {
+            try {
+              offset += caret.props.style.width;
+            } catch (error) {
+              console.error('Add style with width and height to caret image.');
+            }
+          } else {
+            offset += 15;
+          }
+        }
+
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: [styles.container, {
+              zIndex: this.props.zIndex + this.state.visible,
+              paddingBottom: this.state.visible && _reactNative.Platform.OS === 'android' ? this.props.listHeight : 0
+            }],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 72
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableWithoutFeedback,
+            {
+              onPress: this.toggleVisibility.bind(this),
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 74
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                ref: function ref(view) {
+                  _this2.select = view;
+                },
+                style: [styles.select, this.props.selectStyle, {
+                  paddingHorizontal: padding
+                }],
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 77
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: [this.props.selectTextStyle, {
+                    width: 222 - offset
+                  }],
+                  numberOfLines: 1,
+                  lineBreakMode: "tail",
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 81
+                  }
+                },
+                this.state.value
+              ),
+              _react3.default.createElement(_caret2.default, {
+                element: caret,
+                size: this.props.caretSize,
+                color: this.props.caretColor,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 86
+                }
+              })
+            )
+          ),
+          this.state.visible ? _react3.default.createElement(
+            _list2.default,
+            {
+              style: this.props.listStyle,
+              select: this.select,
+              height: this.props.listHeight,
+              position: this.props.listPosition,
+              onOverlayPress: this.toggleVisibility.bind(this),
+              onOptionPressed: this.onOptionPressed,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 91
+              }
+            },
+            this.props.children
+          ) : null
+        );
+      }
+    }]);
+
+    return Select;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    container: {
+      alignSelf: 'stretch'
+    },
+    select: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      alignSelf: 'stretch',
+      height: 40,
+      backgroundColor: '#efefef',
+      borderRadius: 2
+    },
+    labelContainer: {
+      justifyContent: 'center',
+      height: 25,
+      backgroundColor: 'transparent'
+    }
+  });
+
+  Select.propTypes = {
+    listHeight: _react3.default.PropTypes.number,
+    listPosition: _react3.default.PropTypes.oneOf(['down', 'up']),
+    padding: _react3.default.PropTypes.number,
+    zIndex: _react3.default.PropTypes.number,
+    onSelect: _react3.default.PropTypes.func
+  };
+  Select.defaultProps = {
+    listHeight: 100,
+    listPosition: 'down',
+    padding: 10,
+    zIndex: 999,
+    onSelect: function onSelect() {}
+  };
+  module.exports = Select;
+});

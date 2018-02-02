@@ -1,0 +1,87 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  /**
+   * core-decorators.js
+   * (c) 2016 Jay Phelps and contributors
+   * MIT Licensed
+   * https://github.com/jayphelps/core-decorators.js
+   * @license
+   */'use strict';
+
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+
+  function _interopRequire(obj) {
+    return obj && obj.__esModule ? obj['default'] : obj;
+  }
+
+  var _override = require(_dependencyMap[0], './override');
+
+  exports.override = _interopRequire(_override);
+
+  var _deprecate = require(_dependencyMap[1], './deprecate');
+
+  exports.deprecate = _interopRequire(_deprecate);
+  exports.deprecated = _interopRequire(_deprecate);
+
+  var _suppressWarnings = require(_dependencyMap[2], './suppress-warnings');
+
+  exports.suppressWarnings = _interopRequire(_suppressWarnings);
+
+  var _memoize = require(_dependencyMap[3], './memoize');
+
+  exports.memoize = _interopRequire(_memoize);
+
+  var _autobind = require(_dependencyMap[4], './autobind');
+
+  exports.autobind = _interopRequire(_autobind);
+
+  var _readonly = require(_dependencyMap[5], './readonly');
+
+  exports.readonly = _interopRequire(_readonly);
+
+  var _enumerable = require(_dependencyMap[6], './enumerable');
+
+  exports.enumerable = _interopRequire(_enumerable);
+
+  var _nonenumerable = require(_dependencyMap[7], './nonenumerable');
+
+  exports.nonenumerable = _interopRequire(_nonenumerable);
+
+  var _nonconfigurable = require(_dependencyMap[8], './nonconfigurable');
+
+  exports.nonconfigurable = _interopRequire(_nonconfigurable);
+
+  var _debounce = require(_dependencyMap[9], './debounce');
+
+  exports.debounce = _interopRequire(_debounce);
+
+  var _throttle = require(_dependencyMap[10], './throttle');
+
+  exports.throttle = _interopRequire(_throttle);
+
+  var _decorate = require(_dependencyMap[11], './decorate');
+
+  exports.decorate = _interopRequire(_decorate);
+
+  var _mixin = require(_dependencyMap[12], './mixin');
+
+  exports.mixin = _interopRequire(_mixin);
+  exports.mixins = _interopRequire(_mixin);
+
+  var _lazyInitialize = require(_dependencyMap[13], './lazy-initialize');
+
+  exports.lazyInitialize = _interopRequire(_lazyInitialize);
+
+  var _time = require(_dependencyMap[14], './time');
+
+  exports.time = _interopRequire(_time);
+
+  var _extendDescriptor = require(_dependencyMap[15], './extendDescriptor');
+
+  exports.extendDescriptor = _interopRequire(_extendDescriptor);
+
+  var _applyDecorators = require(_dependencyMap[16], './applyDecorators');
+
+  exports.applyDecorators = _interopRequire(_applyDecorators);
+});

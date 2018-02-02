@@ -1,0 +1,25 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  'use strict';
+
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+  exports['default'] = nonconfigurable;
+
+  var _privateUtils = require(_dependencyMap[0], './private/utils');
+
+  function handleDescriptor(target, key, descriptor) {
+    descriptor.configurable = false;
+    return descriptor;
+  }
+
+  function nonconfigurable() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return (0, _privateUtils.decorate)(handleDescriptor, args);
+  }
+
+  module.exports = exports['default'];
+});

@@ -1,0 +1,372 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = require(_dependencyMap[1], "./../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/lucas/React/MyProject/app/index.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _firebase = require(_dependencyMap[2], "firebase");
+
+  var _firebase2 = _interopRequireDefault(_firebase);
+
+  var _reactNative = require(_dependencyMap[3], "react-native");
+
+  var _reactNativeElements = require(_dependencyMap[4], "react-native-elements");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Index: {
+      displayName: "Index"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/lucas/React/MyProject/app/index.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var Index = _wrapComponent("Index")(function (_React$Component) {
+    _inherits(Index, _React$Component);
+
+    function Index(props) {
+      _classCallCheck(this, Index);
+
+      var _this = _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this, props));
+
+      var config = {
+        apiKey: "AIzaSyCxxi4PuA8D12dXl9vVyPicLmKXoojccwU",
+        authDomain: "myproject-877a9.firebaseapp.com",
+        databaseURL: "https://myproject-877a9.firebaseio.com",
+        projectId: "myproject-877a9",
+        storageBucket: "myproject-877a9.appspot.com",
+        messagingSenderId: "1092008285454"
+      };
+
+      if (!_firebase2.default.apps.length) {
+        _firebase2.default.initializeApp(config);
+      }
+
+      var myFireBaseRef = _firebase2.default.database();
+
+      _this.itemsRef = myFireBaseRef.ref().child('items');
+      _this.state = {
+        agencia: '',
+        conta: '',
+        banco: '',
+        nome: '',
+        valor: '',
+        todoSource: new _reactNative.ListView.DataSource({
+          rowHasChanged: function rowHasChanged(row1, row2) {
+            return row1 !== row2;
+          }
+        })
+      };
+      _this.items = [];
+      return _this;
+    }
+
+    _createClass(Index, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var _this2 = this;
+
+        this.itemsRef.on('child_added', function (dataSnapshot) {
+          _this2.items.push({
+            id: dataSnapshot.key,
+            text: dataSnapshot.val()
+          });
+
+          _this2.setState({
+            todoSource: _this2.state.todoSource.cloneWithRows(_this2.items)
+          });
+        });
+        this.itemsRef.on('child_removed', function (dataSnapshot) {
+          _this2.items = _this2.items.filter(function (x) {
+            return x.id !== dataSnapshot.key;
+          });
+
+          _this2.setState({
+            todoSource: _this2.state.todoSource.cloneWithRows(_this2.items)
+          });
+        });
+      }
+    }, {
+      key: "removeTodo",
+      value: function removeTodo(rowData) {
+        var _this3 = this;
+
+        _reactNative.Alert.alert('Deletar Conta', 'Você tem certeza que deseja deletar essa conta?', [{
+          text: 'Cancel',
+          onPress: function onPress() {
+            return console.log('Cancel Pressed');
+          },
+          style: 'cancel'
+        }, {
+          text: 'OK',
+          onPress: function onPress() {
+            return _this3.itemsRef.child(rowData.id).remove();
+          }
+        }], {
+          cancelable: false
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.appContainer,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 76
+            }
+          },
+          _react3.default.createElement(_reactNative.ListView, {
+            dataSource: this.state.todoSource,
+            renderRow: this.renderRow.bind(this),
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 78
+            }
+          })
+        );
+      }
+    }, {
+      key: "renderRow",
+      value: function renderRow(rowData) {
+        var _this4 = this;
+
+        if (rowData.text.banco == "BB") {
+          this.image = require(_dependencyMap[5], './images/BB.jpg');
+        } else if (rowData.text.banco == "Bradesco") {
+          this.image = require(_dependencyMap[6], './images/bradesco.jpg');
+        } else if (rowData.text.banco == "Inter") {
+          this.image = require(_dependencyMap[7], './images/Inter.jpg');
+        } else if (rowData.text.banco == "Itau") {
+          this.image = require(_dependencyMap[8], './images/itau.jpg');
+        } else if (rowData.text.banco == "Caixa") {
+          this.image = require(_dependencyMap[9], './images/Caixa.jpg');
+        }
+
+        return _react3.default.createElement(
+          _reactNativeElements.Card,
+          {
+            containerStyle: {
+              padding: 0,
+              paddingBottom: 4
+            },
+            image: this.image,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 104
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableHighlight,
+            {
+              underlayColor: "#dddddd",
+              onPress: function onPress() {
+                return _this4.removeTodo(rowData);
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 105
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 108
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.row,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 109
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.todoText,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 110
+                    }
+                  },
+                  " ",
+                  rowData.text.nome
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.row,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 112
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.todoText,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 113
+                    }
+                  },
+                  "Agencia: ",
+                  rowData.text.agencia
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.row,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 116
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.todoText,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 117
+                    }
+                  },
+                  "Conta: ",
+                  rowData.text.conta
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.row,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 120
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.todoText,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 121
+                    }
+                  },
+                  "Valor: ",
+                  rowData.text.valor
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return Index;
+  }(_react3.default.Component));
+
+  exports.default = Index;
+
+  var styles = _reactNative.StyleSheet.create({
+    appContainer: {
+      flex: 1
+    },
+    titleView: {
+      backgroundColor: '#48afdb',
+      paddingTop: 30,
+      paddingBottom: 10,
+      flexDirection: 'row'
+    },
+    titleText: {
+      color: '#fff',
+      textAlign: 'center',
+      fontWeight: 'bold',
+      flex: 1,
+      fontSize: 20
+    },
+    inputcontainer: {
+      marginTop: 5,
+      padding: 10,
+      flexDirection: 'row'
+    },
+    button: {
+      height: 36,
+      flex: 2,
+      flexDirection: 'row',
+      backgroundColor: '#48afdb',
+      justifyContent: 'center',
+      borderRadius: 4
+    },
+    btnText: {
+      fontSize: 18,
+      color: '#fff',
+      marginTop: 6
+    },
+    input: {
+      height: 36,
+      padding: 4,
+      marginRight: 5,
+      flex: 4,
+      fontSize: 18,
+      borderWidth: 1,
+      borderColor: '#48afdb',
+      borderRadius: 4,
+      color: '#48BBEC'
+    },
+    row: {
+      flexDirection: 'row',
+      padding: 12,
+      height: 44
+    },
+    separator: {
+      height: 1,
+      backgroundColor: '#CCCCCC'
+    },
+    todoText: {
+      flex: 1
+    }
+  });
+
+  _reactNative.AppRegistry.registerComponent('main', function () {
+    return App;
+  });
+});

@@ -1,0 +1,70 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/lucas/React/MyProject/node_modules/@expo/ex-navigation/src/navigation-experimental/NavigationHeaderTitle.js";
+
+  var React = require(_dependencyMap[0], "react");
+
+  var ReactNative = require(_dependencyMap[1], "react-native");
+
+  var PropTypes = require(_dependencyMap[2], "prop-types");
+
+  var Platform = ReactNative.Platform,
+      StyleSheet = ReactNative.StyleSheet,
+      View = ReactNative.View,
+      Text = ReactNative.Text,
+      ViewPropTypes = ReactNative.ViewPropTypes;
+
+  var NavigationHeaderTitle = function NavigationHeaderTitle(_ref) {
+    var children = _ref.children,
+        style = _ref.style,
+        textStyle = _ref.textStyle,
+        viewProps = _ref.viewProps;
+    return React.createElement(
+      View,
+      _extends({
+        style: [styles.title, style]
+      }, viewProps, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 53
+        }
+      }),
+      React.createElement(
+        Text,
+        {
+          style: [styles.titleText, textStyle],
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 54
+          }
+        },
+        children
+      )
+    );
+  };
+
+  var styles = StyleSheet.create({
+    title: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginHorizontal: 16
+    },
+    titleText: {
+      flex: 1,
+      fontSize: 18,
+      fontWeight: '500',
+      color: 'rgba(0, 0, 0, .9)',
+      textAlign: Platform.OS === 'ios' ? 'center' : 'left'
+    }
+  });
+  NavigationHeaderTitle.propTypes = {
+    children: PropTypes.node.isRequired,
+    style: ViewPropTypes.style,
+    textStyle: Text.propTypes.style
+  };
+  module.exports = NavigationHeaderTitle;
+});

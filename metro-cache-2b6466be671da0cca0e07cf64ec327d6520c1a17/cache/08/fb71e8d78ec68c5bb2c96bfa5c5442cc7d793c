@@ -1,0 +1,61 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _jsxFileName = "/home/lucas/React/MyProject/node_modules/@expo/ex-navigation/src/navigation-experimental/NavigationHeaderBackButton.js";
+
+  var React = require(_dependencyMap[0], "react");
+
+  var ReactNative = require(_dependencyMap[1], "react-native");
+
+  var PropTypes = require(_dependencyMap[2], "prop-types");
+
+  var I18nManager = ReactNative.I18nManager,
+      Image = ReactNative.Image,
+      Platform = ReactNative.Platform,
+      StyleSheet = ReactNative.StyleSheet,
+      TouchableOpacity = ReactNative.TouchableOpacity;
+
+  var NavigationHeaderBackButton = function NavigationHeaderBackButton(props) {
+    return React.createElement(
+      TouchableOpacity,
+      {
+        style: [styles.buttonContainer, props.style],
+        onPress: props.onPress,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 44
+        }
+      },
+      React.createElement(Image, {
+        style: [styles.button, props.imageStyle],
+        source: require(_dependencyMap[3], './assets/back-icon.png'),
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 45
+        }
+      })
+    );
+  };
+
+  NavigationHeaderBackButton.propTypes = {
+    onPress: PropTypes.func.isRequired
+  };
+  var styles = StyleSheet.create({
+    buttonContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    button: {
+      height: 24,
+      width: 24,
+      margin: Platform.OS === 'ios' ? 10 : 16,
+      resizeMode: 'contain',
+      transform: [{
+        scaleX: I18nManager.isRTL ? -1 : 1
+      }]
+    }
+  });
+  module.exports = NavigationHeaderBackButton;
+});

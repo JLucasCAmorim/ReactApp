@@ -1,0 +1,297 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = require(_dependencyMap[1], "./../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/home/lucas/React/MyProject/node_modules/react-native-chooser/lib/select.js";
+
+  var _propTypes = require(_dependencyMap[2], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = require(_dependencyMap[3], "react-native");
+
+  var _optionlist = require(_dependencyMap[4], "./optionlist");
+
+  var _optionlist2 = _interopRequireDefault(_optionlist);
+
+  var _indicator = require(_dependencyMap[5], "./indicator");
+
+  var _indicator2 = _interopRequireDefault(_indicator);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Select: {
+      displayName: "Select"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/lucas/React/MyProject/node_modules/react-native-chooser/lib/select.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var window = _reactNative.Dimensions.get("window");
+
+  var Select = _wrapComponent("Select")((_temp = _class = function (_Component) {
+    _inherits(Select, _Component);
+
+    function Select(props) {
+      _classCallCheck(this, Select);
+
+      var _this = _possibleConstructorReturn(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, props));
+
+      _this.selected = _this.props.selected;
+      _this.state = {
+        modalVisible: false,
+        defaultText: _this.props.defaultText,
+        selected: _this.props.selected
+      };
+      return _this;
+    }
+
+    _createClass(Select, [{
+      key: "componentWillReceiveProps",
+      value: function componentWillReceiveProps(nextProps) {
+        if (nextProps.selected == null) this.setState({
+          defaultText: nextProps.defaultText
+        });
+      }
+    }, {
+      key: "onSelect",
+      value: function onSelect(label, value) {
+        this.props.onSelect(value, label);
+        this.setState({
+          modalVisible: false,
+          defaultText: label
+        });
+      }
+    }, {
+      key: "onClose",
+      value: function onClose() {
+        this.setState({
+          modalVisible: false
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _props = this.props,
+            style = _props.style,
+            defaultText = _props.defaultText,
+            textStyle = _props.textStyle,
+            backdropStyle = _props.backdropStyle,
+            optionListStyle = _props.optionListStyle,
+            transparent = _props.transparent,
+            animationType = _props.animationType,
+            indicator = _props.indicator,
+            indicatorColor = _props.indicatorColor,
+            indicatorSize = _props.indicatorSize,
+            indicatorStyle = _props.indicatorStyle,
+            indicatorIcon = _props.indicatorIcon,
+            selectedStyle = _props.selectedStyle,
+            selected = _props.selected;
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 93
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableWithoutFeedback,
+            {
+              onPress: this.onPress.bind(this),
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 94
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: [styles.selectBox, style],
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 95
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.selectBoxContent,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 96
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: textStyle,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 97
+                    }
+                  },
+                  this.state.defaultText
+                ),
+                indicatorIcon ? indicatorIcon : _react3.default.createElement(_indicator2.default, {
+                  direction: indicator,
+                  color: indicatorColor,
+                  size: indicatorSize,
+                  style: indicatorStyle,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 101
+                  }
+                })
+              )
+            )
+          ),
+          _react3.default.createElement(
+            _reactNative.Modal,
+            {
+              transparent: transparent,
+              animationType: animationType,
+              visible: this.state.modalVisible,
+              onRequestClose: this.onClose.bind(this),
+              supportedOrientations: ['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right'],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 112
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.TouchableWithoutFeedback,
+              {
+                onPress: this.onModalPress.bind(this),
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 119
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: [styles.modalOverlay, backdropStyle],
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 120
+                  }
+                },
+                _react3.default.createElement(
+                  _optionlist2.default,
+                  {
+                    onSelect: this.onSelect.bind(this),
+                    selectedStyle: selectedStyle,
+                    selected: selected,
+                    style: [optionListStyle],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 121
+                    }
+                  },
+                  this.props.children
+                )
+              )
+            )
+          )
+        );
+      }
+    }, {
+      key: "onPress",
+      value: function onPress() {
+        this.setState({
+          modalVisible: !this.state.modalVisible
+        });
+      }
+    }, {
+      key: "onModalPress",
+      value: function onModalPress() {
+        this.setState({
+          modalVisible: false
+        });
+      }
+    }, {
+      key: "setSelectedText",
+      value: function setSelectedText(text) {
+        this.setState({
+          defaultText: text
+        });
+      }
+    }]);
+
+    return Select;
+  }(_react2.Component), _class.defaultProps = {
+    defaultText: "Click To Select",
+    onSelect: function onSelect() {},
+    transparent: false,
+    animationType: "none",
+    indicator: "none",
+    indicatorColor: "black",
+    indicatorSize: 10,
+    indicatorIcon: null
+  }, _class.propTypes = {
+    style: _reactNative.ViewPropTypes.style,
+    defaultText: _propTypes2.default.string,
+    onSelect: _propTypes2.default.func,
+    textStyle: _reactNative.Text.propTypes.style,
+    backdropStyle: _reactNative.ViewPropTypes.style,
+    optionListStyle: _reactNative.ViewPropTypes.style,
+    indicator: _propTypes2.default.string,
+    indicatorColor: _propTypes2.default.string,
+    indicatorSize: _propTypes2.default.number,
+    indicatorStyle: _reactNative.ViewPropTypes.style,
+    indicatorIcon: _propTypes2.default.element
+  }, _temp));
+
+  exports.default = Select;
+
+  var styles = _reactNative.StyleSheet.create({
+    selectBox: {
+      borderWidth: 1,
+      width: 200,
+      padding: 10,
+      borderColor: "black"
+    },
+    selectBoxContent: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center"
+    },
+    modalOverlay: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center"
+    }
+  });
+});

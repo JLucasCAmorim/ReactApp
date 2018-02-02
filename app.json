@@ -1,0 +1,15 @@
+{
+  "expo": {
+   "name": "Minhas Contas",
+   "icon": "./app/icon.png",
+   "version": "1.0.0",
+   "slug": "minhasContas-slug",
+   "sdkVersion": "25.0.0",
+   "ios": {
+     "bundleIdentifier": "com.amorins.minhasContas"
+   },
+   "android": {
+     "package": "com.amorins.minhasContas"
+   }
+  }
+}

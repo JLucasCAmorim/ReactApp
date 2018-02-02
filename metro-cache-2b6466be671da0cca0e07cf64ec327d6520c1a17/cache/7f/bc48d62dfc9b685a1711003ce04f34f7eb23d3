@@ -1,0 +1,341 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ExNavigationRouter = exports.ExNavigationRoute = undefined;
+  var _jsxFileName = "/home/lucas/React/MyProject/node_modules/@expo/ex-navigation/src/ExNavigationRouter.js";
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  exports.createRouter = createRouter;
+
+  var _react = require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _uuidJs = require(_dependencyMap[1], "uuid-js");
+
+  var _uuidJs2 = _interopRequireDefault(_uuidJs);
+
+  var _fbemitter = require(_dependencyMap[2], "fbemitter");
+
+  var _invariant = require(_dependencyMap[3], "invariant");
+
+  var _invariant2 = _interopRequireDefault(_invariant);
+
+  var _warning = require(_dependencyMap[4], "warning");
+
+  var _warning2 = _interopRequireDefault(_warning);
+
+  var _lodash = require(_dependencyMap[5], "lodash");
+
+  var _lodash2 = _interopRequireDefault(_lodash);
+
+  var _ExNavigationBar = require(_dependencyMap[6], "./ExNavigationBar");
+
+  var _ExNavigationBar2 = _interopRequireDefault(_ExNavigationBar);
+
+  var _ExNavigationComponents = require(_dependencyMap[7], "./ExNavigationComponents");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var ExNavigationRoute = exports.ExNavigationRoute = function () {
+    function ExNavigationRoute(_ref) {
+      var _this = this;
+
+      var key = _ref.key,
+          routeName = _ref.routeName,
+          params = _ref.params,
+          config = _ref.config,
+          _renderRoute = _ref._renderRoute;
+
+      _classCallCheck(this, ExNavigationRoute);
+
+      this.render = function () {
+        return _this._renderRoute(_this);
+      };
+
+      this.getTitle = function () {
+        var title = _lodash2.default.get(_this.config, 'navigationBar.title');
+
+        if (typeof title === 'function') {
+          return title(_this.params, _this.config);
+        }
+
+        return title;
+      };
+
+      this.getBarStyle = function () {
+        var result = {};
+
+        var height = _this.getBarHeight();
+
+        var elevation = _this.getBarElevation();
+
+        var borderBottomWidth = _this.getBarBorderBottomWidth();
+
+        var borderBottomColor = _this.getBarBorderBottomColor();
+
+        var backgroundColor = _this.getBarBackgroundColor();
+
+        if (backgroundColor) {
+          if (__DEV__ && _this.getTranslucent() && !backgroundColor.match(/rgba|#([0-9a-fA-F]{2}){4}/)) {
+            console.warn('Using translucent navigation bar and specifying a solid background color, please use rgba or the bar will not be translucent.');
+          }
+
+          result.backgroundColor = backgroundColor;
+        }
+
+        if (_lodash2.default.isNumber(elevation)) {
+          result.elevation = elevation;
+        }
+
+        if (_lodash2.default.isNumber(height)) {
+          result.height = height;
+        }
+
+        if (_lodash2.default.isNumber(borderBottomWidth)) {
+          result.borderBottomWidth = borderBottomWidth;
+        }
+
+        if (borderBottomColor) {
+          result.borderBottomColor = borderBottomColor;
+        }
+
+        return result;
+      };
+
+      this.getTranslucent = function () {
+        return _lodash2.default.get(_this.config, 'navigationBar.translucent');
+      };
+
+      this.getTranslucentTint = function () {
+        return _lodash2.default.get(_this.config, 'navigationBar.translucentTint');
+      };
+
+      this.getBarElevation = function () {
+        return _lodash2.default.get(_this.config, 'navigationBar.elevation');
+      };
+
+      this.getBarHeight = function () {
+        return _lodash2.default.get(_this.config, 'navigationBar.height');
+      };
+
+      this.getBarBorderBottomWidth = function () {
+        return _lodash2.default.get(_this.config, 'navigationBar.borderBottomWidth');
+      };
+
+      this.getBarBorderBottomColor = function () {
+        return _lodash2.default.get(_this.config, 'navigationBar.borderBottomColor');
+      };
+
+      this.getBarBackgroundColor = function () {
+        var backgroundColor = _lodash2.default.get(_this.config, 'navigationBar.backgroundColor');
+
+        if (typeof backgroundColor === 'function') {
+          return backgroundColor(_this.params, _this.config);
+        }
+
+        return backgroundColor;
+      };
+
+      this.getBarTintColor = function () {
+        var tintColor = _lodash2.default.get(_this.config, 'navigationBar.tintColor');
+
+        if (typeof tintColor === 'function') {
+          return tintColor(_this.params, _this.config);
+        }
+
+        return tintColor;
+      };
+
+      this.getTitleStyle = function () {
+        return _lodash2.default.get(_this.config, 'navigationBar.titleStyle');
+      };
+
+      this.getEventEmitter = function () {
+        return _this.config.eventEmitter;
+      };
+
+      this.getTabBarInset = function () {
+        return _lodash2.default.get(_this.config, '__tabBarInset');
+      };
+
+      this.getContentContainerStyle = function () {
+        return _this.getContentInsetsStyle();
+      };
+
+      this.getContentInsetsStyle = function () {
+        var result = {};
+
+        if (_this.getTranslucent()) {
+          result.marginTop = _ExNavigationBar2.default.DEFAULT_HEIGHT;
+        }
+
+        if (_this.getTabBarInset()) {
+          result.paddingBottom = _this.getTabBarInset();
+        }
+
+        return result;
+      };
+
+      this.key = key;
+      this.routeName = routeName;
+      this.params = params;
+      this.config = config;
+      this._renderRoute = _renderRoute;
+    }
+
+    _createClass(ExNavigationRoute, [{
+      key: "clone",
+      value: function clone() {
+        return new ExNavigationRoute({
+          key: this.key,
+          routeName: this.routeName,
+          params: this.params,
+          config: this.config,
+          _renderRoute: this._renderRoute
+        });
+      }
+    }]);
+
+    return ExNavigationRoute;
+  }();
+
+  var ExNavigationRouter = exports.ExNavigationRouter = function () {
+    function ExNavigationRouter(routesCreator) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      _classCallCheck(this, ExNavigationRouter);
+
+      this._routesCreator = routesCreator;
+      this._routes = {};
+      this._routesCreated = false;
+      this._ignoreSerializableWarnings = !!options.ignoreSerializableWarnings;
+    }
+
+    _createClass(ExNavigationRouter, [{
+      key: "getRoute",
+      value: function getRoute(routeName) {
+        var routeParams = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+        this._ensureRoute(routeName);
+
+        if (__DEV__ && !this._ignoreSerializableWarnings) {
+          (0, _warning2.default)(_isSerializable(routeParams), 'You passed a non-serializable value as route parameters. This may prevent navigation state ' + 'from being saved and restored properly. This is only relevant if you would like to be able to' + 'save and reload your navigation state. You can ignore this error with ignoreSerializableWarnings.');
+        }
+
+        return this._createRoute(routeName, this._routes[routeName], routeParams);
+      }
+    }, {
+      key: "updateRouteWithParams",
+      value: function updateRouteWithParams(route, newParams) {
+        return this._createRoute(route.routeName, this._routes[route.routeName], _extends({}, route.params, newParams));
+      }
+    }, {
+      key: "_makeRoute",
+      value: function _makeRoute(RouteComponent) {
+        var FocusAwareRouteComponent = (0, _ExNavigationComponents.createFocusableComponent)((0, _ExNavigationComponents.withNavigation)(RouteComponent));
+        return function (_ref2) {
+          var params = _ref2.params,
+              config = _ref2.config;
+          return _react2.default.createElement(FocusAwareRouteComponent, _extends({}, config && config.defaultParams ? config.defaultParams : {}, params, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 248
+            }
+          }));
+        };
+      }
+    }, {
+      key: "_createRoute",
+      value: function _createRoute(routeName, routeDefinitionThunk) {
+        var routeParams = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+        var routeDefinitionOrComponent = routeDefinitionThunk(routeParams);
+        var routeDefinition = void 0;
+        var renderRoute = void 0;
+
+        if (typeof routeDefinitionOrComponent === 'function') {
+          routeDefinition = this._makeRoute(routeDefinitionOrComponent);
+          renderRoute = routeDefinition;
+        } else if (typeof routeDefinitionOrComponent.render === 'function') {
+          routeDefinition = routeDefinitionOrComponent;
+          renderRoute = routeDefinitionOrComponent.render;
+        } else {
+          throw new Error('Route definition must either be a function that returns a ReactElement, or an object with a `render` function.');
+        }
+
+        var _eventEmitter = new _fbemitter.EventEmitter();
+
+        var _renderRoute = renderRoute;
+        var routeConfig = {
+          eventEmitter: _eventEmitter
+        };
+
+        if (routeDefinition.config) {
+          if (typeof routeDefinition.config === 'function') {
+            routeConfig = _extends({}, routeConfig, routeDefinition.config(routeConfig, routeParams));
+          } else {
+            routeConfig = _extends({}, routeConfig, routeDefinition.config);
+          }
+        }
+
+        var route = new ExNavigationRoute({
+          key: _uuidJs2.default.create(4).toString(),
+          routeName: routeName,
+          params: routeParams,
+          config: routeConfig,
+          _routeDefinition: routeDefinition,
+          _renderRoute: _renderRoute
+        });
+        var routeElement = route.render();
+        var ComponentClass = routeElement.type;
+        var componentRouteConfig = ComponentClass.route;
+
+        if (componentRouteConfig) {
+          route.config = _lodash2.default.merge({}, route.config, componentRouteConfig);
+        }
+
+        return route;
+      }
+    }, {
+      key: "_ensureRoute",
+      value: function _ensureRoute(routeName) {
+        if (!this._routesCreated) {
+          this._routes = _extends({}, this._routes, this._routesCreator());
+          this._routesCreated = true;
+        }
+
+        (0, _invariant2.default)(this._routes[routeName], "Route '" + routeName + "' does not exist.");
+      }
+    }]);
+
+    return ExNavigationRouter;
+  }();
+
+  function createRouter(routesCreator, options) {
+    return new ExNavigationRouter(routesCreator, options);
+  }
+
+  function _isSerializable(obj) {
+    if (_lodash2.default.isUndefined(obj) || _lodash2.default.isNull(obj) || _lodash2.default.isBoolean(obj) || _lodash2.default.isNumber(obj) || _lodash2.default.isString(obj)) {
+      return true;
+    }
+
+    if (!_lodash2.default.isPlainObject(obj) && !_lodash2.default.isArray(obj)) {
+      return false;
+    }
+
+    for (var key in obj) {
+      if (!_isSerializable(obj[key])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+});
