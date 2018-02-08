@@ -11,9 +11,12 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
   var _index2 = _interopRequireDefault(_index);
 
-  var _jsxFileName = "/home/lucas/React/MyProject/app/screens/add.js";
-
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _initialiseProps,
+      _jsxFileName = "/home/lucas/React/MyProject/app/screens/add.js";
 
   var _firebase = require(_dependencyMap[2], "firebase");
 
@@ -22,8 +25,6 @@ __d(function (global, require, module, exports, _dependencyMap) {
   var _reactNative = require(_dependencyMap[3], "react-native");
 
   var _reactNativeElements = require(_dependencyMap[4], "react-native-elements");
-
-  var _reactNativeChooser = require(_dependencyMap[5], "react-native-chooser");
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,7 +53,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     };
   }
 
-  var Add = _wrapComponent("Add")(function (_React$Component) {
+  var Add = _wrapComponent("Add")((_temp = _class = function (_React$Component) {
     _inherits(Add, _React$Component);
 
     function Add(props) {
@@ -60,66 +61,26 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
       var _this = _possibleConstructorReturn(this, (Add.__proto__ || Object.getPrototypeOf(Add)).call(this, props));
 
-      var config = {
-        apiKey: "AIzaSyCxxi4PuA8D12dXl9vVyPicLmKXoojccwU",
-        authDomain: "myproject-877a9.firebaseapp.com",
-        databaseURL: "https://myproject-877a9.firebaseio.com",
-        projectId: "myproject-877a9",
-        storageBucket: "myproject-877a9.appspot.com",
-        messagingSenderId: "1092008285454"
-      };
+      _initialiseProps.call(_this);
 
-      if (!_firebase2.default.apps.length) {
-        _firebase2.default.initializeApp(config);
-      }
+      _this.items = [];
 
       var myFireBaseRef = _firebase2.default.database();
 
-      _this.itemsRef = myFireBaseRef.ref().child('items');
-      _this.state = {
-        banco: 'Selecione o banco',
-        agencia: '',
-        conta: '',
-        nome: '',
-        valor: '',
-        todoSource: new _reactNative.ListView.DataSource({
-          rowHasChanged: function rowHasChanged(row1, row2) {
-            return row1 !== row2;
-          }
-        })
-      };
-      _this.items = [];
+      _firebase2.default.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          _this.carregaDados(myFireBaseRef, user.uid);
+        }
+      });
+
       return _this;
     }
 
     _createClass(Add, [{
-      key: "componentDidMount",
-      value: function componentDidMount() {
-        var _this2 = this;
-
-        this.itemsRef.on('child_added', function (dataSnapshot) {
-          _this2.items.push({
-            id: dataSnapshot.key,
-            text: dataSnapshot.val()
-          });
-
-          _this2.setState({
-            todoSource: _this2.state.todoSource.cloneWithRows(_this2.items)
-          });
-        });
-        this.itemsRef.on('child_removed', function (dataSnapshot) {
-          _this2.items = _this2.items.filter(function (x) {
-            return x.id !== dataSnapshot.key;
-          });
-
-          _this2.setState({
-            todoSource: _this2.state.todoSource.cloneWithRows(_this2.items)
-          });
-        });
-      }
-    }, {
       key: "addTodo",
       value: function addTodo() {
+        var _this2 = this;
+
         if (this.state.agencia !== '' && this.state.conta !== '' && this.state.banco !== 'Selecione o banco' && this.state.nome !== '' && this.state.valor !== '') {
           this.itemsRef.push({
             agencia: this.state.agencia,
@@ -128,12 +89,20 @@ __d(function (global, require, module, exports, _dependencyMap) {
             nome: this.state.nome,
             valor: this.state.valor
           });
-          this.setState({
-            agencia: '',
-            conta: '',
-            banco: 'Selecione o banco',
-            nome: '',
-            valor: ''
+
+          _reactNative.Alert.alert('Conta Adicionada', 'A conta foi adicionada com sucesso!', [{
+            text: 'OK',
+            onPress: function onPress() {
+              return _this2.setState({
+                agencia: '',
+                conta: '',
+                banco: 'Selecione o banco',
+                nome: '',
+                valor: ''
+              });
+            }
+          }], {
+            cancelable: false
           });
         }
       }
@@ -155,198 +124,141 @@ __d(function (global, require, module, exports, _dependencyMap) {
             style: styles.appContainer,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 83
+              lineNumber: 76
             }
           },
-          _react3.default.createElement(
-            _reactNative.View,
-            {
-              style: styles.inputcontainer,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 85
-              }
+          _react3.default.createElement(_reactNative.TextInput, {
+            placeholderTextColor: "#000000",
+            autoFocus: true,
+            underlineColorAndroid: "transparent",
+            keyboardType: "numeric",
+            style: styles.input,
+            placeholder: "Entre com a ag\xEAncia",
+            onChangeText: function onChangeText(text) {
+              return _this3.setState({
+                agencia: text
+              });
             },
-            _react3.default.createElement(_reactNative.TextInput, {
-              underlineColorAndroid: "transparent",
-              keyboardType: "numeric",
-              style: styles.input,
-              placeholder: "Entre com a agencia",
-              onChangeText: function onChangeText(text) {
+            value: this.state.agencia,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 79
+            }
+          }),
+          _react3.default.createElement(_reactNative.TextInput, {
+            placeholderTextColor: "#000000",
+            underlineColorAndroid: "transparent",
+            keyboardType: "numeric",
+            style: styles.input,
+            placeholder: "Entre com a conta ",
+            onChangeText: function onChangeText(text) {
+              return _this3.setState({
+                conta: text
+              });
+            },
+            value: this.state.conta,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 82
+            }
+          }),
+          _react3.default.createElement(_reactNative.TextInput, {
+            placeholderTextColor: "#000000",
+            underlineColorAndroid: "transparent",
+            style: styles.input,
+            placeholder: "Entre com o nome do titular",
+            onChangeText: function onChangeText(text) {
+              return _this3.setState({
+                nome: text
+              });
+            },
+            value: this.state.nome,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 85
+            }
+          }),
+          _react3.default.createElement(_reactNative.TextInput, {
+            placeholderTextColor: "#000000",
+            underlineColorAndroid: "transparent",
+            keyboardType: "numeric",
+            style: styles.input,
+            placeholder: "Entre com o valor",
+            onChangeText: function onChangeText(text) {
+              return _this3.setState({
+                valor: text
+              });
+            },
+            value: this.state.valor,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 89
+            }
+          }),
+          _react3.default.createElement(
+            _reactNative.Picker,
+            {
+              selectedValue: this.state.banco,
+              itemStyle: styles.items,
+              style: styles.select,
+              onValueChange: function onValueChange(value, label) {
                 return _this3.setState({
-                  agencia: text
+                  banco: value
                 });
               },
-              value: this.state.agencia,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 86
-              }
-            })
-          ),
-          _react3.default.createElement(
-            _reactNative.View,
-            {
-              style: styles.inputcontainer,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 88
-              }
-            },
-            _react3.default.createElement(_reactNative.TextInput, {
-              underlineColorAndroid: "transparent",
-              keyboardType: "numeric",
-              style: styles.input,
-              placeholder: "Entre com a conta ",
-              onChangeText: function onChangeText(text) {
-                return _this3.setState({
-                  conta: text
-                });
-              },
-              value: this.state.conta,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 89
-              }
-            })
-          ),
-          _react3.default.createElement(
-            _reactNative.View,
-            {
-              style: styles.inputcontainer,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 91
-              }
-            },
-            _react3.default.createElement(_reactNative.TextInput, {
-              underlineColorAndroid: "transparent",
-              style: styles.input,
-              placeholder: "Entre com o nome do titular",
-              onChangeText: function onChangeText(text) {
-                return _this3.setState({
-                  nome: text
-                });
-              },
-              value: this.state.nome,
               __source: {
                 fileName: _jsxFileName,
                 lineNumber: 92
               }
-            })
-          ),
-          _react3.default.createElement(
-            _reactNative.View,
-            {
-              style: styles.inputcontainer,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 95
-              }
             },
-            _react3.default.createElement(_reactNative.TextInput, {
-              underlineColorAndroid: "transparent",
-              keyboardType: "numeric",
-              style: styles.input,
-              placeholder: "Entre com o valor",
-              onChangeText: function onChangeText(text) {
-                return _this3.setState({
-                  valor: text
-                });
-              },
-              value: this.state.valor,
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Selecione o banco",
+              value: "Selecione o banco",
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 96
+                lineNumber: 97
               }
-            })
-          ),
-          _react3.default.createElement(
-            _reactNative.View,
-            {
-              style: styles.inputcontainer,
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Banco do Brasil",
+              value: "BB",
               __source: {
                 fileName: _jsxFileName,
                 lineNumber: 98
               }
-            },
-            _react3.default.createElement(
-              _reactNativeChooser.Select,
-              {
-                onSelect: this.onSelect.bind(this),
-                defaultText: this.state.banco,
-                style: {
-                  borderWidth: 1,
-                  borderColor: "#48afdb"
-                },
-                textStyle: {},
-                backdropStyle: {
-                  backgroundColor: "#d3d5d6"
-                },
-                optionListStyle: {
-                  backgroundColor: "#F5FCFF"
-                },
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 99
-                }
-              },
-              _react3.default.createElement(
-                _reactNativeChooser.Option,
-                {
-                  value: "BB",
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 105
-                  }
-                },
-                "Banco do Brasil"
-              ),
-              _react3.default.createElement(
-                _reactNativeChooser.Option,
-                {
-                  value: "Bradesco",
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 106
-                  }
-                },
-                "Bradesco"
-              ),
-              _react3.default.createElement(
-                _reactNativeChooser.Option,
-                {
-                  value: "Inter",
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 107
-                  }
-                },
-                "Inter"
-              ),
-              _react3.default.createElement(
-                _reactNativeChooser.Option,
-                {
-                  value: "Caixa",
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 108
-                  }
-                },
-                "Caixa Econ\xF4mica Federal"
-              ),
-              _react3.default.createElement(
-                _reactNativeChooser.Option,
-                {
-                  value: "Itau",
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 109
-                  }
-                },
-                "Ita\xFA"
-              )
-            )
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Bradesco",
+              value: "Bradesco",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 99
+              }
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Inter",
+              value: "Inter",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 100
+              }
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Caixa Econ\xF4mica Federal",
+              value: "Caixa",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 101
+              }
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Ita\xFA",
+              value: "Itau",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 102
+              }
+            })
           ),
           _react3.default.createElement(
             _reactNative.View,
@@ -354,7 +266,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
               style: styles.inputcontainer,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 112
+                lineNumber: 106
               }
             },
             _react3.default.createElement(
@@ -367,7 +279,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                 underlayColor: "#dddddd",
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 113
+                  lineNumber: 107
                 }
               },
               _react3.default.createElement(
@@ -376,10 +288,10 @@ __d(function (global, require, module, exports, _dependencyMap) {
                   style: styles.btnText,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 117
+                    lineNumber: 111
                   }
                 },
-                "Add!"
+                "ADICIONAR"
               )
             )
           )
@@ -388,34 +300,52 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }]);
 
     return Add;
-  }(_react3.default.Component));
+  }(_react3.default.Component), _initialiseProps = function _initialiseProps() {
+    var _this4 = this;
+
+    this.state = {
+      banco: 'Selecione o banco',
+      agencia: '',
+      conta: '',
+      nome: '',
+      valor: '',
+      todoSource: new _reactNative.ListView.DataSource({
+        rowHasChanged: function rowHasChanged(row1, row2) {
+          return row1 !== row2;
+        }
+      })
+    };
+
+    this.carregaDados = function (myFireBaseRef, userId) {
+      _this4.itemsRef = myFireBaseRef.ref('users/' + userId).child('items');
+
+      _this4.itemsRef.on('child_added', function (dataSnapshot) {
+        _this4.items.push({
+          id: dataSnapshot.key,
+          text: dataSnapshot.val()
+        });
+
+        _this4.setState({
+          todoSource: _this4.state.todoSource.cloneWithRows(_this4.items)
+        });
+      });
+    };
+  }, _temp));
 
   exports.default = Add;
 
   var styles = _reactNative.StyleSheet.create({
     appContainer: {
-      flex: 1
-    },
-    titleView: {
-      backgroundColor: '#48afdb',
-      paddingTop: 30,
-      paddingBottom: 10,
-      flexDirection: 'row'
-    },
-    titleText: {
-      color: '#fff',
-      textAlign: 'center',
-      fontWeight: 'bold',
       flex: 1,
-      fontSize: 20
+      padding: 20,
+      paddingBottom: 40
     },
     inputcontainer: {
       marginTop: 5,
-      padding: 10,
       flexDirection: 'row'
     },
     button: {
-      height: 36,
+      height: 40,
       flex: 2,
       flexDirection: 'row',
       backgroundColor: '#48afdb',
@@ -428,15 +358,18 @@ __d(function (global, require, module, exports, _dependencyMap) {
       marginTop: 6
     },
     input: {
-      height: 36,
-      padding: 4,
-      marginRight: 5,
-      flex: 4,
-      fontSize: 18,
-      borderWidth: 1,
-      borderColor: '#48afdb',
-      borderRadius: 4,
-      color: '#48BBEC'
+      height: 40,
+      backgroundColor: 'rgba(255,255,255,0.4)',
+      marginBottom: 20,
+      fontSize: 16,
+      color: '#000',
+      paddingHorizontal: 10
+    },
+    select: {
+      height: 40,
+      backgroundColor: 'rgba(255,255,255,0.4)',
+      marginBottom: 20,
+      paddingHorizontal: 10
     },
     row: {
       flexDirection: 'row',
@@ -449,10 +382,13 @@ __d(function (global, require, module, exports, _dependencyMap) {
     },
     todoText: {
       flex: 1
+    },
+    items: {
+      fontSize: 12
     }
   });
 
-  _reactNative.AppRegistry.registerComponent('main', function () {
-    return App;
+  _reactNative.AppRegistry.registerComponent('Add', function () {
+    return Add;
   });
 });

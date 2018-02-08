@@ -1,14 +1,19 @@
 import React from 'react';
-import { View, Text, Platform, PlatformIOS } from 'react-native';
+import { View, Text, Platform, PlatformIOS, TouchableOpacity, StyleSheet } from 'react-native';
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import HomeScreen  from '../index';
 import AddScreen  from '../screens/add';
+import RegisterScreen  from '../screens/register';
+import LoginScreen  from '../screens/login';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Logout from '../screens/components/logout';
+
 
 const DrawerIcon = ({navigation}) => {
   if(Platform.OS == 'ios'){
     return null;
   }
+  
   return(
     <Ionicons
           name="md-menu"
@@ -33,31 +38,50 @@ const AddIcon = ({navigation}) => {
   );
 }
 
-export const Stack1 = StackNavigator({
-  Home: {
-    screen: HomeScreen,
+const LoginStack = StackNavigator({
+  Login: {
+    screen: LoginScreen,
     navigationOptions: (props) => ({
-      title: 'Minhas Contas',
-      headerLeft: (<DrawerIcon {...props} />),
-      headerRight: (<AddIcon {...props} />),
+      title: 'Login',
+      headerLeft: null,
       headerTintColor: '#fff',
       headerStyle: { backgroundColor: '#0087B7' }
     })
   },
-  Add: {
-    screen: AddScreen,
-    navigationOptions: {
-      headerTitle: 'Add',
+  Register: {
+    screen: RegisterScreen,
+    navigationOptions: (props) => ({
+      title: 'Registro',
       headerTintColor: '#fff',
       headerStyle: { backgroundColor: '#0087B7' }
-    },
+    })
   },
 
 });
 
-export const Drawer = DrawerNavigator({
+const DrawerNavigation = StackNavigator({
+  DrawerStack: { 
+    screen: HomeScreen, 
+    navigationOptions: (props) => ({
+    title: 'Minhas Contas',
+    headerLeft: (<DrawerIcon {...props} />),
+    headerRight: (<AddIcon {...props} />),
+    headerTintColor: '#fff',
+    headerStyle: { backgroundColor: '#0087B7' }
+  }) },
+  Add: {
+     screen: AddScreen,
+     navigationOptions: (props) => ({
+      title: 'Adicionar Conta',
+      headerTintColor: '#fff',
+      headerStyle: { backgroundColor: '#0087B7' }
+    })
+    }
+ });
+
+const DrawerStack = DrawerNavigator({
   Home: {
-    screen: Stack1,
+    screen: DrawerNavigation ,
     navigationOptions: {
       drawerLabel: 'Home',
       drawerIcon: ({ tintColor, focused }) => (
@@ -69,8 +93,46 @@ export const Drawer = DrawerNavigator({
       ),
     },
   },
-  
+  Logout: {
+    screen: Logout,
+    navigationOptions: {
+      drawerLabel: 'Logout',
+      drawerIcon: ({ tintColor, focused }) => (
+        <Ionicons
+          name={focused ? 'ios-close' : 'ios-close-outline'}
+          size={20}
+          style={{ color: tintColor }}
+        />
+      ),
+    },
+  },
 });
 
 
+const PrimaryNav = StackNavigator({
+  loginStack: { screen: LoginStack },
+  drawerStack: { screen: DrawerStack }
+}, {
+  // Default config for all screens
+  headerMode: 'none',
+  title: 'Main',
+  initialRouteName: 'loginStack'
+});
+
+
+export default PrimaryNav
+
+const styles = StyleSheet.create({
+   
+  buttonContainer:{
+      backgroundColor: '#2980b9',
+      paddingVertical: 10
+  },
+  buttonText:{
+      textAlign: 'center',
+      color: '#ffffff',
+      fontWeight: '700'
+  }
+ 
+ });
  

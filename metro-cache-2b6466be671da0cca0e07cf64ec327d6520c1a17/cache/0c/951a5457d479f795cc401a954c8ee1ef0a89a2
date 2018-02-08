@@ -2,7 +2,6 @@ __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.Drawer = exports.Stack1 = undefined;
 
   var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -24,9 +23,21 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
   var _add2 = _interopRequireDefault(_add);
 
-  var _Ionicons = require(_dependencyMap[5], "@expo/vector-icons/Ionicons");
+  var _register = require(_dependencyMap[5], "../screens/register");
+
+  var _register2 = _interopRequireDefault(_register);
+
+  var _login = require(_dependencyMap[6], "../screens/login");
+
+  var _login2 = _interopRequireDefault(_login);
+
+  var _Ionicons = require(_dependencyMap[7], "@expo/vector-icons/Ionicons");
 
   var _Ionicons2 = _interopRequireDefault(_Ionicons);
+
+  var _logout = require(_dependencyMap[8], "../screens/components/logout");
+
+  var _logout2 = _interopRequireDefault(_logout);
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,7 +60,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 13
+        lineNumber: 18
       }
     });
   };
@@ -68,13 +79,40 @@ __d(function (global, require, module, exports, _dependencyMap) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 25
+        lineNumber: 30
       }
     });
   };
 
-  var Stack1 = exports.Stack1 = (0, _reactNavigation.StackNavigator)({
-    Home: {
+  var LoginStack = (0, _reactNavigation.StackNavigator)({
+    Login: {
+      screen: _login2.default,
+      navigationOptions: function navigationOptions(props) {
+        return {
+          title: 'Login',
+          headerLeft: null,
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#0087B7'
+          }
+        };
+      }
+    },
+    Register: {
+      screen: _register2.default,
+      navigationOptions: function navigationOptions(props) {
+        return {
+          title: 'Registro',
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#0087B7'
+          }
+        };
+      }
+    }
+  });
+  var DrawerNavigation = (0, _reactNavigation.StackNavigator)({
+    DrawerStack: {
       screen: _index2.default,
       navigationOptions: function navigationOptions(props) {
         return {
@@ -82,13 +120,13 @@ __d(function (global, require, module, exports, _dependencyMap) {
           headerLeft: _react2.default.createElement(DrawerIcon, _extends({}, props, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 41
+              lineNumber: 67
             }
           })),
           headerRight: _react2.default.createElement(AddIcon, _extends({}, props, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 42
+              lineNumber: 68
             }
           })),
           headerTintColor: '#fff',
@@ -100,18 +138,20 @@ __d(function (global, require, module, exports, _dependencyMap) {
     },
     Add: {
       screen: _add2.default,
-      navigationOptions: {
-        headerTitle: 'Add',
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#0087B7'
-        }
+      navigationOptions: function navigationOptions(props) {
+        return {
+          title: 'Adicionar Conta',
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#0087B7'
+          }
+        };
       }
     }
   });
-  var Drawer = exports.Drawer = (0, _reactNavigation.DrawerNavigator)({
+  var DrawerStack = (0, _reactNavigation.DrawerNavigator)({
     Home: {
-      screen: Stack1,
+      screen: DrawerNavigation,
       navigationOptions: {
         drawerLabel: 'Home',
         drawerIcon: function drawerIcon(_ref3) {
@@ -125,11 +165,57 @@ __d(function (global, require, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 64
+              lineNumber: 88
             }
           });
         }
       }
+    },
+    Logout: {
+      screen: _logout2.default,
+      navigationOptions: {
+        drawerLabel: 'Logout',
+        drawerIcon: function drawerIcon(_ref4) {
+          var tintColor = _ref4.tintColor,
+              focused = _ref4.focused;
+          return _react2.default.createElement(_Ionicons2.default, {
+            name: focused ? 'ios-close' : 'ios-close-outline',
+            size: 20,
+            style: {
+              color: tintColor
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 101
+            }
+          });
+        }
+      }
+    }
+  });
+  var PrimaryNav = (0, _reactNavigation.StackNavigator)({
+    loginStack: {
+      screen: LoginStack
+    },
+    drawerStack: {
+      screen: DrawerStack
+    }
+  }, {
+    headerMode: 'none',
+    title: 'Main',
+    initialRouteName: 'loginStack'
+  });
+  exports.default = PrimaryNav;
+
+  var styles = _reactNative.StyleSheet.create({
+    buttonContainer: {
+      backgroundColor: '#2980b9',
+      paddingVertical: 10
+    },
+    buttonText: {
+      textAlign: 'center',
+      color: '#ffffff',
+      fontWeight: '700'
     }
   });
 });

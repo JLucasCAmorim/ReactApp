@@ -11,9 +11,12 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
   var _index2 = _interopRequireDefault(_index);
 
-  var _jsxFileName = "/home/lucas/React/MyProject/app/index.js";
-
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _initialiseProps,
+      _jsxFileName = "/home/lucas/React/MyProject/app/index.js";
 
   var _firebase = require(_dependencyMap[2], "firebase");
 
@@ -50,7 +53,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     };
   }
 
-  var Index = _wrapComponent("Index")(function (_React$Component) {
+  var Index = _wrapComponent("Index")((_temp = _class = function (_React$Component) {
     _inherits(Index, _React$Component);
 
     function Index(props) {
@@ -58,101 +61,90 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
       var _this = _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this, props));
 
-      var config = {
-        apiKey: "AIzaSyCxxi4PuA8D12dXl9vVyPicLmKXoojccwU",
-        authDomain: "myproject-877a9.firebaseapp.com",
-        databaseURL: "https://myproject-877a9.firebaseio.com",
-        projectId: "myproject-877a9",
-        storageBucket: "myproject-877a9.appspot.com",
-        messagingSenderId: "1092008285454"
-      };
-
-      if (!_firebase2.default.apps.length) {
-        _firebase2.default.initializeApp(config);
-      }
+      _initialiseProps.call(_this);
 
       var myFireBaseRef = _firebase2.default.database();
 
-      _this.itemsRef = myFireBaseRef.ref().child('items');
-      _this.state = {
-        agencia: '',
-        conta: '',
-        banco: '',
-        nome: '',
-        valor: '',
-        todoSource: new _reactNative.ListView.DataSource({
-          rowHasChanged: function rowHasChanged(row1, row2) {
-            return row1 !== row2;
-          }
-        })
-      };
       _this.items = [];
+
+      _firebase2.default.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          _this.carregaDados(myFireBaseRef, user.uid);
+        }
+      });
+
       return _this;
     }
 
     _createClass(Index, [{
-      key: "componentDidMount",
-      value: function componentDidMount() {
-        var _this2 = this;
-
-        this.itemsRef.on('child_added', function (dataSnapshot) {
-          _this2.items.push({
-            id: dataSnapshot.key,
-            text: dataSnapshot.val()
-          });
-
-          _this2.setState({
-            todoSource: _this2.state.todoSource.cloneWithRows(_this2.items)
-          });
-        });
-        this.itemsRef.on('child_removed', function (dataSnapshot) {
-          _this2.items = _this2.items.filter(function (x) {
-            return x.id !== dataSnapshot.key;
-          });
-
-          _this2.setState({
-            todoSource: _this2.state.todoSource.cloneWithRows(_this2.items)
-          });
-        });
-      }
-    }, {
       key: "removeTodo",
       value: function removeTodo(rowData) {
-        var _this3 = this;
+        var _this2 = this;
 
         _reactNative.Alert.alert('Deletar Conta', 'Você tem certeza que deseja deletar essa conta?', [{
           text: 'Cancel',
-          onPress: function onPress() {
-            return console.log('Cancel Pressed');
-          },
           style: 'cancel'
         }, {
           text: 'OK',
           onPress: function onPress() {
-            return _this3.itemsRef.child(rowData.id).remove();
+            return _this2.itemsRef.child(rowData.id).remove();
           }
         }], {
           cancelable: false
         });
       }
     }, {
+      key: "filterSearch",
+      value: function filterSearch(text) {
+        var newData = this.items.filter(function (item) {
+          var itemData = item.text.nome;
+          var textData = text;
+          return itemData.indexOf(textData) > -1;
+        });
+        this.setState({
+          todoSource: this.state.todoSource.cloneWithRows(newData),
+          text: text
+        });
+      }
+    }, {
       key: "render",
       value: function render() {
+        var _this3 = this;
+
         return _react3.default.createElement(
           _reactNative.View,
           {
             style: styles.appContainer,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 76
+              lineNumber: 84
             }
           },
+          _react3.default.createElement(_reactNativeElements.SearchBar, {
+            lightTheme: true,
+            inputStyle: {
+              color: '#fff'
+            },
+            onChangeText: function onChangeText(text) {
+              return _this3.filterSearch(text);
+            },
+            icon: {
+              type: 'font-awesome',
+              name: 'search'
+            },
+            placeholder: "Digite aqui...",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 86
+            }
+          }),
           _react3.default.createElement(_reactNative.ListView, {
+            enableEmptySections: true,
             dataSource: this.state.todoSource,
             renderRow: this.renderRow.bind(this),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 78
+              lineNumber: 92
             }
           })
         );
@@ -184,7 +176,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             image: this.image,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 104
+              lineNumber: 117
             }
           },
           _react3.default.createElement(
@@ -196,7 +188,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 105
+                lineNumber: 118
               }
             },
             _react3.default.createElement(
@@ -204,7 +196,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 108
+                  lineNumber: 121
                 }
               },
               _react3.default.createElement(
@@ -213,7 +205,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                   style: styles.row,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 109
+                    lineNumber: 122
                   }
                 },
                 _react3.default.createElement(
@@ -222,7 +214,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                     style: styles.todoText,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 110
+                      lineNumber: 123
                     }
                   },
                   " ",
@@ -235,7 +227,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                   style: styles.row,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 112
+                    lineNumber: 125
                   }
                 },
                 _react3.default.createElement(
@@ -244,7 +236,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                     style: styles.todoText,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 113
+                      lineNumber: 126
                     }
                   },
                   "Agencia: ",
@@ -257,7 +249,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                   style: styles.row,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 116
+                    lineNumber: 129
                   }
                 },
                 _react3.default.createElement(
@@ -266,7 +258,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                     style: styles.todoText,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 117
+                      lineNumber: 130
                     }
                   },
                   "Conta: ",
@@ -279,7 +271,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                   style: styles.row,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 120
+                    lineNumber: 133
                   }
                 },
                 _react3.default.createElement(
@@ -288,7 +280,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                     style: styles.todoText,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 121
+                      lineNumber: 134
                     }
                   },
                   "Valor: ",
@@ -302,13 +294,64 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }]);
 
     return Index;
-  }(_react3.default.Component));
+  }(_react3.default.Component), _initialiseProps = function _initialiseProps() {
+    var _this5 = this;
+
+    this.state = {
+      agencia: '',
+      conta: '',
+      banco: '',
+      nome: '',
+      valor: '',
+      text: '',
+      todoSource: new _reactNative.ListView.DataSource({
+        rowHasChanged: function rowHasChanged(row1, row2) {
+          return row1 !== row2;
+        }
+      })
+    };
+
+    this.carregaDados = function (myFireBaseRef, userId) {
+      _this5.itemsRef = myFireBaseRef.ref('users/' + userId).child('items');
+
+      _this5.itemsRef.on('child_added', function (dataSnapshot) {
+        _this5.items.push({
+          id: dataSnapshot.key,
+          text: dataSnapshot.val()
+        });
+
+        _this5.setState({
+          todoSource: _this5.state.todoSource.cloneWithRows(_this5.items)
+        });
+      });
+
+      _this5.itemsRef.on('child_removed', function (dataSnapshot) {
+        _this5.items = _this5.items.filter(function (x) {
+          return x.id !== dataSnapshot.key;
+        });
+
+        _this5.setState({
+          todoSource: _this5.state.todoSource.cloneWithRows(_this5.items)
+        });
+      });
+    };
+  }, _temp));
 
   exports.default = Index;
 
   var styles = _reactNative.StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center'
+    },
+    horizontal: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      padding: 10
+    },
     appContainer: {
-      flex: 1
+      flex: 1,
+      paddingBottom: 20
     },
     titleView: {
       backgroundColor: '#48afdb',
@@ -366,7 +409,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }
   });
 
-  _reactNative.AppRegistry.registerComponent('main', function () {
-    return App;
+  _reactNative.AppRegistry.registerComponent('home', function () {
+    return home;
   });
 });

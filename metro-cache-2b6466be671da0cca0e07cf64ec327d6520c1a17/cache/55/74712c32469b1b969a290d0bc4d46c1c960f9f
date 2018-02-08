@@ -1,0 +1,178 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Drawer = exports.Stack1 = undefined;
+  var _jsxFileName = "/home/lucas/React/MyProject/app/routes/routes.js";
+
+  var _react = require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = require(_dependencyMap[1], "react-native");
+
+  var _reactNavigation = require(_dependencyMap[2], "react-navigation");
+
+  var _index = require(_dependencyMap[3], "../index");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _add = require(_dependencyMap[4], "../screens/add");
+
+  var _add2 = _interopRequireDefault(_add);
+
+  var _register = require(_dependencyMap[5], "../screens/register");
+
+  var _register2 = _interopRequireDefault(_register);
+
+  var _login = require(_dependencyMap[6], "../screens/login");
+
+  var _login2 = _interopRequireDefault(_login);
+
+  var _Ionicons = require(_dependencyMap[7], "@expo/vector-icons/Ionicons");
+
+  var _Ionicons2 = _interopRequireDefault(_Ionicons);
+
+  var _logout = require(_dependencyMap[8], "../screens/components/logout");
+
+  var _logout2 = _interopRequireDefault(_logout);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var DrawerIcon = function DrawerIcon(_ref) {
+    var navigation = _ref.navigation;
+
+    if (_reactNative.Platform.OS == 'ios') {
+      return null;
+    }
+
+    return _react2.default.createElement(_Ionicons2.default, {
+      name: "md-menu",
+      size: 28,
+      color: "white",
+      style: {
+        paddingLeft: 20
+      },
+      onPress: function onPress() {
+        return navigation.navigate('DrawerOpen');
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 16
+      }
+    });
+  };
+
+  var AddIcon = function AddIcon(_ref2) {
+    var navigation = _ref2.navigation;
+    return _react2.default.createElement(_Ionicons2.default, {
+      name: "md-add",
+      size: 28,
+      color: "white",
+      style: {
+        paddingRight: 20
+      },
+      onPress: function onPress() {
+        return navigation.navigate('Add');
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 28
+      }
+    });
+  };
+
+  var Stack1 = exports.Stack1 = (0, _reactNavigation.StackNavigator)({
+    Login: {
+      screen: _login2.default,
+      navigationOptions: function navigationOptions(props) {
+        return {
+          title: 'Login',
+          headerLeft: null,
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#0087B7'
+          }
+        };
+      }
+    },
+    Register: {
+      screen: _register2.default,
+      navigationOptions: function navigationOptions(props) {
+        return {
+          title: 'Registro',
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#0087B7'
+          }
+        };
+      }
+    },
+    Add: {
+      screen: _add2.default,
+      navigationOptions: {
+        headerTitle: 'Adicionar Conta',
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#0087B7'
+        }
+      }
+    }
+  });
+  var Drawer = exports.Drawer = (0, _reactNavigation.DrawerNavigator)({
+    Home: {
+      screen: Stack1,
+      navigationOptions: {
+        drawerLabel: 'Home',
+        drawerIcon: function drawerIcon(_ref3) {
+          var tintColor = _ref3.tintColor,
+              focused = _ref3.focused;
+          return _react2.default.createElement(_Ionicons2.default, {
+            name: focused ? 'ios-home' : 'ios-home-outline',
+            size: 20,
+            style: {
+              color: tintColor
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 75
+            }
+          });
+        }
+      }
+    },
+    Logout: {
+      screen: _logout2.default,
+      navigationOptions: {
+        drawerLabel: 'Logout',
+        drawerIcon: function drawerIcon(_ref4) {
+          var tintColor = _ref4.tintColor,
+              focused = _ref4.focused;
+          return _react2.default.createElement(_Ionicons2.default, {
+            name: focused ? 'ios-close' : 'ios-close-outline',
+            size: 20,
+            style: {
+              color: tintColor
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 88
+            }
+          });
+        }
+      }
+    }
+  });
+
+  var styles = _reactNative.StyleSheet.create({
+    buttonContainer: {
+      backgroundColor: '#2980b9',
+      paddingVertical: 10
+    },
+    buttonText: {
+      textAlign: 'center',
+      color: '#ffffff',
+      fontWeight: '700'
+    }
+  });
+});

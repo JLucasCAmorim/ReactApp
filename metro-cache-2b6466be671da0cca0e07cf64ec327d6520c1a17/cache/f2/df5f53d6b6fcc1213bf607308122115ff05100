@@ -1,0 +1,393 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = require(_dependencyMap[1], "./../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/lucas/React/MyProject/app/screens/add.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _firebase = require(_dependencyMap[2], "firebase");
+
+  var _firebase2 = _interopRequireDefault(_firebase);
+
+  var _reactNative = require(_dependencyMap[3], "react-native");
+
+  var _reactNativeElements = require(_dependencyMap[4], "react-native-elements");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Add: {
+      displayName: "Add"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/lucas/React/MyProject/app/screens/add.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var Add = _wrapComponent("Add")(function (_React$Component) {
+    _inherits(Add, _React$Component);
+
+    function Add() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, Add);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Add.__proto__ || Object.getPrototypeOf(Add)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        banco: 'Selecione o banco',
+        agencia: '',
+        conta: '',
+        nome: '',
+        valor: '',
+        todoSource: new _reactNative.ListView.DataSource({
+          rowHasChanged: function rowHasChanged(row1, row2) {
+            return row1 !== row2;
+          }
+        })
+      }, _this.carregaDados = function (myFireBaseRef, userId) {
+        _this.itemsRef = myFireBaseRef.ref('users/' + userId).child('items');
+
+        _this.itemsRef.on('child_added', function (dataSnapshot) {
+          _this.items.push({
+            id: dataSnapshot.key,
+            text: dataSnapshot.val()
+          });
+
+          _this.setState({
+            todoSource: _this.state.todoSource.cloneWithRows(_this.items)
+          });
+        });
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(Add, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var _this2 = this;
+
+        this.items = [];
+
+        var myFireBaseRef = _firebase2.default.database();
+
+        _firebase2.default.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            _this2.carregaDados(myFireBaseRef, user.uid);
+          }
+        });
+      }
+    }, {
+      key: "addTodo",
+      value: function addTodo() {
+        var _this3 = this;
+
+        if (this.state.agencia !== '' && this.state.conta !== '' && this.state.banco !== 'Selecione o banco' && this.state.nome !== '' && this.state.valor !== '') {
+          this.itemsRef.push({
+            agencia: this.state.agencia,
+            conta: this.state.conta,
+            banco: this.state.banco,
+            nome: this.state.nome,
+            valor: this.state.valor
+          });
+
+          _reactNative.Alert.alert('Conta Adicionada', 'A conta foi adicionada com sucesso!', [{
+            text: 'OK',
+            onPress: function onPress() {
+              return _this3.setState({
+                agencia: '',
+                conta: '',
+                banco: 'Selecione o banco',
+                nome: '',
+                valor: ''
+              });
+            }
+          }], {
+            cancelable: false
+          });
+        }
+      }
+    }, {
+      key: "onSelect",
+      value: function onSelect(value, label) {
+        this.setState({
+          banco: value
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this4 = this;
+
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.appContainer,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 76
+            }
+          },
+          _react3.default.createElement(_reactNative.TextInput, {
+            placeholderTextColor: "#000000",
+            underlineColorAndroid: "transparent",
+            keyboardType: "numeric",
+            style: styles.input,
+            placeholder: "Entre com a ag\xEAncia",
+            onChangeText: function onChangeText(text) {
+              return _this4.setState({
+                agencia: text
+              });
+            },
+            value: this.state.agencia,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 79
+            }
+          }),
+          _react3.default.createElement(_reactNative.TextInput, {
+            placeholderTextColor: "#000000",
+            underlineColorAndroid: "transparent",
+            keyboardType: "numeric",
+            style: styles.input,
+            placeholder: "Entre com a conta ",
+            onChangeText: function onChangeText(text) {
+              return _this4.setState({
+                conta: text
+              });
+            },
+            value: this.state.conta,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 82
+            }
+          }),
+          _react3.default.createElement(_reactNative.TextInput, {
+            placeholderTextColor: "#000000",
+            underlineColorAndroid: "transparent",
+            style: styles.input,
+            placeholder: "Entre com o nome do titular",
+            onChangeText: function onChangeText(text) {
+              return _this4.setState({
+                nome: text
+              });
+            },
+            value: this.state.nome,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 85
+            }
+          }),
+          _react3.default.createElement(_reactNative.TextInput, {
+            placeholderTextColor: "#000000",
+            underlineColorAndroid: "transparent",
+            keyboardType: "numeric",
+            style: styles.input,
+            placeholder: "Entre com o valor",
+            onChangeText: function onChangeText(text) {
+              return _this4.setState({
+                valor: text
+              });
+            },
+            value: this.state.valor,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 89
+            }
+          }),
+          _react3.default.createElement(
+            _reactNative.Picker,
+            {
+              selectedValue: this.state.banco,
+              itemStyle: styles.items,
+              style: styles.select,
+              onValueChange: function onValueChange(value, label) {
+                return _this4.setState({
+                  banco: value
+                });
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 92
+              }
+            },
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Selecione o banco",
+              value: "Selecione o banco",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 97
+              }
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Banco do Brasil",
+              value: "BB",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 98
+              }
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Bradesco",
+              value: "Bradesco",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 99
+              }
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Inter",
+              value: "Inter",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 100
+              }
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Caixa Econ\xF4mica Federal",
+              value: "Caixa",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 101
+              }
+            }),
+            _react3.default.createElement(_reactNative.Picker.Item, {
+              label: "Ita\xFA",
+              value: "Itau",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 102
+              }
+            })
+          ),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: styles.inputcontainer,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 106
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.TouchableHighlight,
+              {
+                style: styles.button,
+                onPress: function onPress() {
+                  return _this4.addTodo();
+                },
+                underlayColor: "#dddddd",
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 107
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: styles.btnText,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 111
+                  }
+                },
+                "ADICIONAR"
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return Add;
+  }(_react3.default.Component));
+
+  exports.default = Add;
+
+  var styles = _reactNative.StyleSheet.create({
+    appContainer: {
+      flex: 1,
+      padding: 20,
+      paddingBottom: 40
+    },
+    inputcontainer: {
+      marginTop: 5,
+      flexDirection: 'row'
+    },
+    button: {
+      height: 40,
+      flex: 2,
+      flexDirection: 'row',
+      backgroundColor: '#48afdb',
+      justifyContent: 'center',
+      borderRadius: 4
+    },
+    btnText: {
+      fontSize: 18,
+      color: '#fff',
+      marginTop: 6
+    },
+    input: {
+      height: 40,
+      backgroundColor: 'rgba(255,255,255,0.4)',
+      marginBottom: 20,
+      fontSize: 16,
+      color: '#000',
+      paddingHorizontal: 10
+    },
+    select: {
+      height: 40,
+      backgroundColor: 'rgba(255,255,255,0.4)',
+      marginBottom: 20,
+      paddingHorizontal: 10
+    },
+    row: {
+      flexDirection: 'row',
+      padding: 12,
+      height: 44
+    },
+    separator: {
+      height: 1,
+      backgroundColor: '#CCCCCC'
+    },
+    todoText: {
+      flex: 1
+    },
+    items: {
+      fontSize: 12
+    }
+  });
+
+  _reactNative.AppRegistry.registerComponent('Add', function () {
+    return Add;
+  });
+});

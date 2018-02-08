@@ -1,150 +1,133 @@
 import React from 'react';
-import firebase  from 'firebase';
-import { StyleSheet, Text, View, ListView, TextInput, TouchableHighlight, AppRegistry } from 'react-native';
+import firebase from 'firebase';
+import { StyleSheet, Text, View, ListView, TextInput, TouchableHighlight, AppRegistry, Picker, Alert } from 'react-native';
 import { Card, ListItem, Button } from 'react-native-elements'
-import {Select, Option} from "react-native-chooser";
+
 
 export default class Add extends React.Component {
+  state = {
+    banco: 'Selecione o banco',
+    agencia: '',
+    conta: '',
+    nome: '',
+    valor: '',
+    todoSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 })
+  };
   constructor(props){
-    super(props);
-    
-    const config = {
-      apiKey: "AIzaSyCxxi4PuA8D12dXl9vVyPicLmKXoojccwU",
-      authDomain: "myproject-877a9.firebaseapp.com",
-      databaseURL: "https://myproject-877a9.firebaseio.com",
-      projectId: "myproject-877a9",
-      storageBucket: "myproject-877a9.appspot.com",
-      messagingSenderId: "1092008285454"
-    };
-
-    
-    if(!firebase.apps.length){
-      firebase.initializeApp(config);
-    }
-    
+    super(props)
+    this.items = [];
     const myFireBaseRef = firebase.database();
 
-    this.itemsRef= myFireBaseRef.ref().child('items');
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
 
-
-    this.state = {
-      banco: 'Selecione o banco',
-      agencia: '',
-      conta: '',
-      nome: '',
-      valor: '',
-      todoSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
-    };
-    this.items = [];
-
+        this.carregaDados(myFireBaseRef, user.uid);
+      }
+    });
+    
   }
   
-  componentDidMount(){
+  carregaDados = (myFireBaseRef, userId) => {
+    this.itemsRef = myFireBaseRef.ref('users/' + userId).child('items');
+
     this.itemsRef.on('child_added', (dataSnapshot) => {
-      this.items.push({id: dataSnapshot.key, text: dataSnapshot.val()});
+      this.items.push({ id: dataSnapshot.key, text: dataSnapshot.val() });
       this.setState({
         todoSource: this.state.todoSource.cloneWithRows(this.items)
       });
     });
-   
-    // When a todo is removed
-    this.itemsRef.on('child_removed', (dataSnapshot) => {
-        this.items = this.items.filter((x) => x.id !== dataSnapshot.key);
-        this.setState({
-          todoSource: this.state.todoSource.cloneWithRows(this.items)
-        });
-    });
   }
-
-  addTodo(){
-    if(this.state.agencia !== '' && this.state.conta !== '' && this.state.banco !== 'Selecione o banco' && this.state.nome !== '' && this.state.valor !== '' ){
+  addTodo() {
+    if (this.state.agencia !== '' && this.state.conta !== '' && this.state.banco !== 'Selecione o banco' && this.state.nome !== '' && this.state.valor !== '') {
       this.itemsRef.push({
         agencia: this.state.agencia,
         conta: this.state.conta,
         banco: this.state.banco,
         nome: this.state.nome,
         valor: this.state.valor,
-     });
-      this.setState({
-        agencia: '',
-        conta: '',
-        banco: 'Selecione o banco',
-        nome: '',
-        valor: ''
       });
+      Alert.alert(
+        'Conta Adicionada',
+        'A conta foi adicionada com sucesso!',
+        [
+
+          {
+            text: 'OK', onPress: () => this.setState({
+              agencia: '',
+              conta: '',
+              banco: 'Selecione o banco',
+              nome: '',
+              valor: ''
+            })
+          },
+        ],
+        { cancelable: false }
+      )
+
+
     }
   }
   onSelect(value, label) {
-    this.setState({banco : value});
+    this.setState({ banco: value });
   }
   render() {
     return (
-      
+
       <View style={styles.appContainer}>
-    
-      <View style={styles.inputcontainer}>
-        <TextInput underlineColorAndroid='transparent'  keyboardType='numeric' style={styles.input} placeholder="Entre com a agencia" onChangeText={(text) => this.setState({agencia: text})} value={this.state.agencia}/>
+
+
+        <TextInput placeholderTextColor='#000000' autoFocus underlineColorAndroid='transparent' keyboardType='numeric' style={styles.input} placeholder="Entre com a agência" onChangeText={(text) => this.setState({ agencia: text })} value={this.state.agencia} />
+
+
+        <TextInput placeholderTextColor='#000000' underlineColorAndroid='transparent' keyboardType='numeric' style={styles.input} placeholder="Entre com a conta " onChangeText={(text) => this.setState({ conta: text })} value={this.state.conta} />
+
+
+        <TextInput placeholderTextColor='#000000' underlineColorAndroid='transparent' style={styles.input} placeholder="Entre com o nome do titular" onChangeText={(text) => this.setState({ nome: text })} value={this.state.nome} />
+
+
+
+        <TextInput placeholderTextColor='#000000' underlineColorAndroid='transparent' keyboardType='numeric' style={styles.input} placeholder="Entre com o valor" onChangeText={(text) => this.setState({ valor: text })} value={this.state.valor} />
+
+
+        <Picker
+          selectedValue={this.state.banco}
+          itemStyle={styles.items}
+          style={styles.select}
+          onValueChange={(value, label) => this.setState({ banco: value })}>
+          <Picker.Item label="Selecione o banco" value="Selecione o banco" />
+          <Picker.Item label="Banco do Brasil" value="BB" />
+          <Picker.Item label="Bradesco" value="Bradesco" />
+          <Picker.Item label="Inter" value="Inter" />
+          <Picker.Item label="Caixa Econômica Federal" value="Caixa" />
+          <Picker.Item label="Itaú" value="Itau" />
+        </Picker>
+
+
+        <View style={styles.inputcontainer}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => this.addTodo()}
+            underlayColor='#dddddd'>
+            <Text style={styles.btnText}>ADICIONAR</Text>
+          </TouchableHighlight>
+        </View>
       </View>
-      <View style={styles.inputcontainer}>
-      <TextInput underlineColorAndroid='transparent'  keyboardType='numeric' style={styles.input} placeholder="Entre com a conta " onChangeText={(text) => this.setState({conta: text})} value={this.state.conta}/>
-      </View>
-        <View style={styles.inputcontainer}>
-        <TextInput underlineColorAndroid='transparent' style={styles.input} placeholder="Entre com o nome do titular" onChangeText={(text) => this.setState({nome: text})} value={this.state.nome}/>
-        
-        </View>
-        <View style={styles.inputcontainer}>
-        <TextInput underlineColorAndroid='transparent' keyboardType='numeric' style={styles.input}  placeholder="Entre com o valor"  onChangeText={(text) => this.setState({valor: text})} value={this.state.valor}/>
-        </View>
-        <View style={styles.inputcontainer}>
-       <Select  onSelect = {this.onSelect.bind(this)}
-            defaultText  = {this.state.banco}
-            style = {{borderWidth : 1, borderColor : "#48afdb"}}
-            textStyle = {{}}
-            backdropStyle  = {{backgroundColor : "#d3d5d6"}}
-            optionListStyle = {{backgroundColor : "#F5FCFF"}}>
-          <Option value= "BB" >Banco do Brasil</Option>
-          <Option value="Bradesco">Bradesco</Option>
-          <Option value="Inter">Inter</Option>
-          <Option value="Caixa">Caixa Econômica Federal</Option>
-          <Option value="Itau">Itaú</Option>
-      </Select>
-        </View>
-        <View style={styles.inputcontainer}>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.addTodo()}
-          underlayColor='#dddddd'>
-          <Text style={styles.btnText}>Add!</Text>
-        </TouchableHighlight>
-        </View>
-    </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  appContainer:{
-    flex: 1
-  },
-  titleView:{
-    backgroundColor: '#48afdb',
-    paddingTop: 30,
-    paddingBottom: 10,
-    flexDirection: 'row'
-  },
-  titleText:{
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 'bold',
+  appContainer: {
     flex: 1,
-    fontSize: 20,
+    padding: 20,
+    paddingBottom: 40,
   },
   inputcontainer: {
     marginTop: 5,
-    padding: 10,
+    
     flexDirection: 'row'
   },
   button: {
-    height: 36,
+    height: 40,
     flex: 2,
     flexDirection: 'row',
     backgroundColor: '#48afdb',
@@ -157,17 +140,19 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   input: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#48afdb',
-    borderRadius: 4,
-    
-    color: '#48BBEC'
-    
+    height: 40,
+    backgroundColor: 'rgba(255,255,255,0.4)',
+    marginBottom: 20,
+    fontSize: 16,
+    color: '#000',
+    paddingHorizontal: 10
+  },
+  select: {
+    height: 40,
+    backgroundColor: 'rgba(255,255,255,0.4)',
+    marginBottom: 20,
+    paddingHorizontal: 10
+
   },
   row: {
     flexDirection: 'row',
@@ -180,6 +165,9 @@ const styles = StyleSheet.create({
   },
   todoText: {
     flex: 1,
+  },
+  items: {
+    fontSize: 12,
   }
 });
-AppRegistry.registerComponent('main', () => App);
+AppRegistry.registerComponent('Add', () => Add);

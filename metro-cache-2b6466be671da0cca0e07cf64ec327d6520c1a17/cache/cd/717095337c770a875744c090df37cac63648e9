@@ -1,0 +1,13 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/app/images",
+    "width": 590,
+    "height": 300,
+    "scales": [1],
+    "hash": "82351c6a22a5f7fd65a768ec7e2d8532",
+    "name": "itau",
+    "type": "jpg",
+    "fileHashes": ["82351c6a22a5f7fd65a768ec7e2d8532"]
+  });
+});

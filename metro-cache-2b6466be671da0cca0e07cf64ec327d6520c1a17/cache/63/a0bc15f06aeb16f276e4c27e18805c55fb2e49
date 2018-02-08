@@ -1,0 +1,11 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+	module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+		"__packager_asset": true,
+		"httpServerLocation": "/assets/node_modules/native-base/Fonts",
+		"scales": [1],
+		"hash": "54a91b0619ccf9373d525109268219dc",
+		"name": "Roboto",
+		"type": "ttf",
+		"fileHashes": ["54a91b0619ccf9373d525109268219dc"]
+	});
+});

@@ -1,0 +1,12 @@
+__d(function (global, require, module, exports, _dependencyMap) {
+  module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/app/images",
+    "width": 800,
+    "height": 665,
+    "scales": [1],
+    "hash": "b2ffb3a32c2e07826c887815599de6f3",
+    "name": "Octocat",
+    "type": "png"
+  });
+});
